@@ -8,7 +8,9 @@ public class SVM {
         //TODO
     }
     public float predict(Vector3 data){
-        //TODO
+                
+        //return Math.signum(Vector3.dot(xi,weight)-bias);
+        
         return 1.0f;
     }
 }
