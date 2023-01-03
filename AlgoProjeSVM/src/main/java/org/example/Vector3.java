@@ -9,10 +9,16 @@ public class Vector3 {
         y = ZERO;
         z = ZERO;
     }
+    
+    public Vector3(float x, float y, float z){
+        this.x = x;
+        this.y = y; 
+        this.z = z;
+    }
+    
 
-    public static Vector3 dot(Vector3 a,Vector3 b){
-        //TODO
-        return  null;
+    public static float dot(Vector3 a,Vector3 b){
+        return  a.x * b.x + a.y * b.y + a.z * b.z;
     }
     
     public static Vector3 subtract(Vector3 a,Vector3 b){
