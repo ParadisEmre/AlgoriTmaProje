@@ -16,18 +16,15 @@ public class Vector3 {
         this.z = z;
     }
     
-
     public static float dot(Vector3 a,Vector3 b){
         return  a.x * b.x + a.y * b.y + a.z * b.z;
     }
     
     public static Vector3 subtract(Vector3 a,Vector3 b){
-        //TODO
-        return  null;
+        return new Vector3(a.x-b.x, a.y-b.y, a.z-b.z);
     }
 
     public static Vector3 multiply(Vector3 a,float b){
-        //TODO
-        return  null;
+        return new Vector3(a.x*b, a.y*b, a.z*b);
     }
 }
