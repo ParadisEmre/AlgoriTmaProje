@@ -1,13 +1,13 @@
 package org.example;
 
 public class Vector3 {
-    public final int ZERO = 0;
+    public static final Vector3 ZERO = new Vector3();
     public float x,y,z;
 
     public Vector3(){
-        x = ZERO;
-        y = ZERO;
-        z = ZERO;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
     }
     
     public Vector3(float x, float y, float z){
@@ -27,4 +27,11 @@ public class Vector3 {
     public static Vector3 multiply(Vector3 a,float b){
         return new Vector3(a.x*b, a.y*b, a.z*b);
     }
+
+    @Override
+    public String toString() {
+        return "x: " + x + " y: " + y + " z: " + z + "\n";
+    }
+    
+    
 }
