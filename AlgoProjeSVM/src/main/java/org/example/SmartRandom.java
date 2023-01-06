@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package org.example;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,12 +13,13 @@ public class SmartRandom {
     int lowerBound = -100;
     int corrector = 50;//Corrector for shifting
     
-    public Random rand = new Random();
+    Random rand = new Random();
 
-    public List<Vector3> randomVectors = new ArrayList<>();//Random vectors that are on the plane and then shifted randomly
+    private List<Vector3> randomVectors = new ArrayList<>();//Random vectors that are on the plane and then shifted randomly
 
-    List<Vector3> planeCreationPoints = new ArrayList<>();//Plane is created by these points
-    List<Vector3> unitVectors = new ArrayList<>();//Unit vectors after various math operations
+    private List<DataEntry> rndDataSet = new ArrayList<>();
+    private List<Vector3> planeCreationPoints = new ArrayList<>();//Plane is created by these points
+    private List<Vector3> unitVectors = new ArrayList<>();//Unit vectors after various math operations
     
     float planeEquationEquality = 0;//Plane equartions right side
     Vector3 planeEquationCoefficients = new Vector3();//Plane equartions left side
@@ -45,7 +41,7 @@ public class SmartRandom {
 
         while (counter < amount) {
             System.out.println("Calculating the random vector...");
-            while (planeEquationCoefficients.x * randomX + planeEquationCoefficients.y * randomY + planeEquationCoefficients.z * randomZ != planeEquationEquality) {
+            while (planeEquationCoefficients.x * randomX + planeEquationCoefficients.y * randomY + planeEquationCoefficients.z * randomZ != planeEquationEquality) {//Investigate!
                 int weight = rand.nextInt(0, 100);
                 if (weight <= CHANCE) {//Point is created in the weighted zone or not. Chance decides that
                     if (weightedZoneLower < 0) {//For the sake of rand.nextFloat() we have to check the negativity like this
@@ -86,7 +82,9 @@ public class SmartRandom {
             while(!checkBoundsForVector(Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10)))){
                 randomNum = rand.nextFloat(0, 100) - corrector;
             }
-            randomVectors.set(i, Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10)));
+            var vec = Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10));
+            randomVectors.set(i,vec);
+            rndDataSet.add(new DataEntry(vec,Math.signum(randomNum)));
         }
         System.out.println("AFTER SHIFT");
         printRandomVectors();
@@ -140,4 +138,7 @@ public class SmartRandom {
         System.out.println(planeEquationCoefficients.x + "x +" + planeEquationCoefficients.y + "y + " + planeEquationCoefficients.z + "z + " + -planeEquationEquality + " = 0");
     }
 
+    public List<DataEntry> getDataSet(){
+        return rndDataSet;
+    }
 }
