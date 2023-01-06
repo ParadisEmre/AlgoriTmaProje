@@ -64,6 +64,7 @@ public class SmartRandom {
                 }
             }
         }
+        
         float unit = Vector3.magnitude(planeEquationCoefficients);//Calculating its unit magnitude
 
         printRandomVectors();
@@ -75,10 +76,10 @@ public class SmartRandom {
         for (int i = 0; i < randomVectors.size(); i++) {
 
             randomNum = rand.nextFloat(0, 100) - corrector;//Shifting every point so that they do not stay in the plane
-            while (!checkBoundsForVector(Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10)))) {
+            while (!checkBoundsForVector(Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 40)))) {
                 randomNum = rand.nextFloat(0, 100) - corrector;
             }
-            var vec = Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10));
+            var vec = Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 40));
             randomVectors.set(i, vec);
             rndDataSet.add(new DataEntry(vec, Math.signum(randomNum)));
         }

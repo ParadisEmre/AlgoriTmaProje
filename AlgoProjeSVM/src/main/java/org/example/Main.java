@@ -12,7 +12,7 @@ public class Main {
         SVM svm = new SVM(1000, 0.001f, 0.01f);
         SmartRandom sr = new SmartRandom();
         sr.createPlane();
-        sr.createRandomVector(12, 99, 100);
+        sr.createRandomVector(12, 70, 100);
         sr.printPlaneEquation();
 //        var b = sr.getDataSet();
 //        svm.train(b);
