@@ -12,12 +12,12 @@ public class Main {
         SVM svm = new SVM(1000, 0.001f, 0.01f);
         SmartRandom sr = new SmartRandom();
         sr.createPlane();
-        sr.createRandomVector(12, 40, 70);
+        sr.createRandomVector(12, 99, 100);
         sr.printPlaneEquation();
-        var b = sr.getDataSet();
-        svm.train(b);
-        var a = svm.predict(1f,2f,3f);
-        pline(a);
+//        var b = sr.getDataSet();
+//        svm.train(b);
+//        var a = svm.predict(1f,2f,3f);
+//        pline(a);
 
         //Test Cases
     }

@@ -1,4 +1,5 @@
 package org.example;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +13,7 @@ public class SmartRandom {
     int upperBound = 100;//Bounds of the room
     int lowerBound = -100;
     int corrector = 50;//Corrector for shifting
-    
+
     Random rand = new Random();
 
     private List<Vector3> randomVectors = new ArrayList<>();//Random vectors that are on the plane and then shifted randomly
@@ -20,14 +21,14 @@ public class SmartRandom {
     private List<DataEntry> rndDataSet = new ArrayList<>();
     private List<Vector3> planeCreationPoints = new ArrayList<>();//Plane is created by these points
     private List<Vector3> unitVectors = new ArrayList<>();//Unit vectors after various math operations
-    
+
     float planeEquationEquality = 0;//Plane equartions right side
     Vector3 planeEquationCoefficients = new Vector3();//Plane equartions left side
     //-10                      60
 
     public void createRandomVector(int amount, int weightedZoneLower, int weightedZoneUpper) {//Amount of vectors that are going to be created is the first parameter
-                                                                                              //weightedZoneLower is the weighted zones beginning
-                                                                                              //weightedZoneUpper is the weighted zones upperbound
+        //weightedZoneLower is the weighted zones beginning
+        //weightedZoneUpper is the weighted zones upperbound
         int counter = 0;
         int CHANCE = 70;//Chance of its being in the weighted zone.
         float randomX = 0;//These three are the points that are created on the plane at the beginning.
@@ -40,33 +41,28 @@ public class SmartRandom {
         }
 
         while (counter < amount) {
-            System.out.println("Calculating the random vector...");
-            while (planeEquationCoefficients.x * randomX + planeEquationCoefficients.y * randomY + planeEquationCoefficients.z * randomZ != planeEquationEquality) {//Investigate!
-                int weight = rand.nextInt(0, 100);
-                if (weight <= CHANCE) {//Point is created in the weighted zone or not. Chance decides that
-                    if (weightedZoneLower < 0) {//For the sake of rand.nextFloat() we have to check the negativity like this
-                        randomX = rand.nextFloat(0, weightedZoneUpper - weightedZoneLower) + weightedZoneLower;
-                        randomY = rand.nextFloat(0, weightedZoneUpper - weightedZoneLower) + weightedZoneLower;
-                        randomZ = rand.nextFloat(0, weightedZoneUpper - weightedZoneLower) + weightedZoneLower;
-                    } else {
-                        randomX = rand.nextFloat(weightedZoneLower, weightedZoneUpper);
-                        randomY = rand.nextFloat(weightedZoneLower, weightedZoneUpper);
-                        randomZ = rand.nextFloat(weightedZoneLower, weightedZoneUpper);
-                    }
+            int weight = rand.nextInt(0, 100);
+            if (weight <= CHANCE) {//Point is created in the weighted zone or not. Chance decides that
+                if (weightedZoneLower < 0) {//For the sake of rand.nextFloat() we have to check the negativity like this
+                    randomX = rand.nextFloat(0, weightedZoneUpper - weightedZoneLower) + weightedZoneLower;
+                    randomY = rand.nextFloat(0, weightedZoneUpper - weightedZoneLower) + weightedZoneLower;
                 } else {
-                    randomX = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
-                    randomY = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
-                    randomZ = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
+                    randomX = rand.nextFloat(weightedZoneLower, weightedZoneUpper);
+                    randomY = rand.nextFloat(weightedZoneLower, weightedZoneUpper);
+                }
+            } else {
+                randomX = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
+                randomY = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
+            }
+            randomZ = (planeEquationEquality - (planeEquationCoefficients.x * randomX + planeEquationCoefficients.y * randomY)) / planeEquationCoefficients.z;
+
+            if (!randomVectors.contains(new Vector3(randomX, randomY, randomZ)) && !planeCreationPoints.contains(new Vector3(randomX, randomY, randomZ))) {//OBJEYE BAKIYOMUŞ BU YAA VECTORE EŞİTLİK FONKU YAZ CHECK İÇİN
+                if (checkBoundsForVector(new Vector3(randomX, randomY, randomZ))) {
+                    randomVectors.add(new Vector3(randomX, randomY, randomZ));//Point is added to randomVectors after various checks
+                    counter++;
+                    System.out.println(counter + ". random vector is set.");
                 }
             }
-            if (!randomVectors.contains(new Vector3(randomX, randomY, randomZ)) && !planeCreationPoints.contains(new Vector3(randomX, randomY, randomZ))) {//OBJEYE BAKIYOMUŞ BU YAA VECTORE EŞİTLİK FONKU YAZ CHECK İÇİN
-                randomVectors.add(new Vector3(randomX, randomY, randomZ));//Point is added to randomVectors after various checks
-                counter++;
-                System.out.println(counter + ". random vector is set.");
-            }
-            randomX = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
-            randomY = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
-            randomZ = rand.nextFloat(0, upperBound - lowerBound) + lowerBound;
         }
         float unit = Vector3.magnitude(planeEquationCoefficients);//Calculating its unit magnitude
 
@@ -77,14 +73,14 @@ public class SmartRandom {
         }
         float randomNum = 0;
         for (int i = 0; i < randomVectors.size(); i++) {
-            
+
             randomNum = rand.nextFloat(0, 100) - corrector;//Shifting every point so that they do not stay in the plane
-            while(!checkBoundsForVector(Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10)))){
+            while (!checkBoundsForVector(Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10)))) {
                 randomNum = rand.nextFloat(0, 100) - corrector;
             }
             var vec = Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 10));
-            randomVectors.set(i,vec);
-            rndDataSet.add(new DataEntry(vec,Math.signum(randomNum)));
+            randomVectors.set(i, vec);
+            rndDataSet.add(new DataEntry(vec, Math.signum(randomNum)));
         }
         System.out.println("AFTER SHIFT");
         printRandomVectors();
@@ -104,12 +100,13 @@ public class SmartRandom {
 
         Vector3 AB = Vector3.subtract(planeCreationPoints.get(1), planeCreationPoints.get(0));
         Vector3 AC = Vector3.subtract(planeCreationPoints.get(2), planeCreationPoints.get(0));
-        
+
         //Equations informations are set with various math operations
         planeEquationCoefficients = Vector3.cross(AB, AC);
 
         planeEquationEquality = -(Vector3.dot(planeEquationCoefficients, new Vector3(-planeCreationPoints.get(2).x, -planeCreationPoints.get(2).y, -planeCreationPoints.get(2).z)));//Denklemin diğer tarafı
     }
+
     //Prints.
     public void printPlaneVectors() {
         System.out.println("Plane Creation Vectors:");
@@ -118,6 +115,7 @@ public class SmartRandom {
         }
         System.out.println("");
     }
+
     //Prints.
     public void printRandomVectors() {
         System.out.println("Random Vectors:");
@@ -126,19 +124,20 @@ public class SmartRandom {
         }
         System.out.println("");
     }
+
     //Checks if the vector is still in the room that we created with bounds.   
-    public boolean checkBoundsForVector(Vector3 v){
-        if(v.x > upperBound || v.x < lowerBound || v.y > upperBound || v.y < lowerBound || v.z > upperBound || v.z < lowerBound){
+    public boolean checkBoundsForVector(Vector3 v) {
+        if (v.x > upperBound || v.x < lowerBound || v.y > upperBound || v.y < lowerBound || v.z > upperBound || v.z < lowerBound) {
             return false;
         }
         return true;
     }
-    
-    public void printPlaneEquation(){
+
+    public void printPlaneEquation() {
         System.out.println(planeEquationCoefficients.x + "x +" + planeEquationCoefficients.y + "y + " + planeEquationCoefficients.z + "z + " + -planeEquationEquality + " = 0");
     }
 
-    public List<DataEntry> getDataSet(){
+    public List<DataEntry> getDataSet() {
         return rndDataSet;
     }
 }
