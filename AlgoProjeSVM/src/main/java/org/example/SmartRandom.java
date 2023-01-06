@@ -135,5 +135,9 @@ public class SmartRandom {
         }
         return true;
     }
+    
+    public void printPlaneEquation(){
+        System.out.println(planeEquationCoefficients.x + "x +" + planeEquationCoefficients.y + "y + " + planeEquationCoefficients.z + "z + " + -planeEquationEquality + " = 0");
+    }
 
 }

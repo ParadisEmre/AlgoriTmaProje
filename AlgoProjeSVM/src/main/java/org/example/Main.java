@@ -6,7 +6,8 @@ public class Main {
         SVM svm = new SVM(1000, 0.001f, 0.01f);
         SmartRandom sr = new SmartRandom();
         sr.createPlane();
-        sr.createRandomVector(2, 40, 70);
+        sr.createRandomVector(2, 80, 70);
+        sr.printPlaneEquation();
         
         
         
