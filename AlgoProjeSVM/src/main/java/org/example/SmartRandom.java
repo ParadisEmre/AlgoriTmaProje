@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.plaf.synth.Region;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,10 +36,17 @@ public class SmartRandom {
         float randomY = 0;
         float randomZ = 0;
 
+        //Used for progress not for logic
+        float stepAmount = 1f / amount;
+        float totalStep = 0;
+
         if (weightedZoneLower < lowerBound || weightedZoneUpper > upperBound || weightedZoneUpper < weightedZoneLower) {//Check if the parameters are fine
             System.out.println("Incorrect weighted limits.");
             return;
         }
+
+        System.out.println("Generating "+amount+" points for plane:");
+        printPlaneEquation();
 
         while (counter < amount) {
             int weight = rand.nextInt(0, 100);
@@ -60,14 +68,22 @@ public class SmartRandom {
                 if (checkBoundsForVector(new Vector3(randomX, randomY, randomZ))) {
                     randomVectors.add(new Vector3(randomX, randomY, randomZ));//Point is added to randomVectors after various checks
                     counter++;
-                    System.out.println(counter + ". random vector is set.");
+
+                    //USED FOR PRINTING PROGRESS
+                    totalStep += stepAmount;
+                    while (totalStep > 0.1f){
+                        totalStep -= 0.1f;
+                        System.out.print("#");
+                    }
+                    if(counter == amount) System.out.println("");
+                    //
                 }
             }
         }
         
         float unit = Vector3.magnitude(planeEquationCoefficients);//Calculating its unit magnitude
 
-        printRandomVectors();
+        //printRandomVectors();
 
         for (Vector3 v : randomVectors) {
             unitVectors.add(Vector3.multiply(v, 1 / unit));//Calculating unit vectors of each vector
@@ -81,11 +97,9 @@ public class SmartRandom {
             }
             var vec = Vector3.subtract(randomVectors.get(i), Vector3.multiply(unitVectors.get(i), randomNum * 40));
             randomVectors.set(i, vec);
-            rndDataSet.add(new DataEntry(vec, Math.signum(randomNum)));
+            var entry = new DataEntry(vec, -Math.signum(randomNum));
+            rndDataSet.add(entry);
         }
-        System.out.println("AFTER SHIFT");
-        printRandomVectors();
-
     }
 
     public void createPlane() {
@@ -106,6 +120,16 @@ public class SmartRandom {
         planeEquationCoefficients = Vector3.cross(AB, AC);
 
         planeEquationEquality = -(Vector3.dot(planeEquationCoefficients, new Vector3(-planeCreationPoints.get(2).x, -planeCreationPoints.get(2).y, -planeCreationPoints.get(2).z)));//Denklemin diğer tarafı
+    }
+
+    public void setPlane(float x,float y,float z,float constant){
+        planeEquationCoefficients = new Vector3(x,y,z);
+        planeEquationEquality = constant;
+    }
+
+    public void setPlane(Vector3 vec,float constant){
+        planeEquationCoefficients = vec;
+        planeEquationEquality = constant;
     }
 
     //Prints.

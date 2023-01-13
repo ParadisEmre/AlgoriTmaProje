@@ -47,7 +47,7 @@ public class Vector3 {
 
     @Override
     public String toString() {
-        return "x: " + x + " y: " + y + " z: " + z + "\n";
+        return String.format("X: %6.2f Y: %6.2f Z : %6.2f",x,y,z);
     }
 
 }

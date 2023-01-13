@@ -39,10 +39,12 @@ public class SVM {
     }
     // abs (xi. weight)-bias 
     public float predict(Vector3 xi){
-            return Math.signum(Vector3.dot(xi,weight)-bias);//hey
+            return Math.signum(Vector3.dot(xi,weight)-bias);
     }
 
     public float predict(float x,float y,float z){
-        return Math.signum(Vector3.dot(new Vector3(x,y,z),weight)-bias);//hey
+        float prediction = Math.signum(Vector3.dot(new Vector3(x,y,z),weight)-bias);
+        //System.out.println(String.format("Classification for point %5.2f %5.2f %5.2f is %+1.0f",x,y,z,prediction));
+        return prediction;
     }
 }
