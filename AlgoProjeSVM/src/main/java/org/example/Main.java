@@ -76,6 +76,26 @@ public class Main {
         testPoint(svm,4,5.8f,28,1);
         testPoint(svm,-16,3.7f,-7,-1);
         testPoint(svm,0,39.2f,-7.2f,1);
-        // 1 üstünde -1 altında
+        
+        //RESET ALL
+        svm = new SVM(1000, 0.001f, 0.01f);
+        smartRandom = new SmartRandom();
+        //
+        
+        //Test Case4
+        pline("====================================================================");
+        pline("TEST CASE 4");
+        pline("Plane [3x + 2y + 4z = 100]");
+        smartRandom.setPlane(3,2,4,100);//x + z = 10
+        smartRandom.createRandomVector(100000,0,50);
+        data = smartRandom.getDataSet();
+        pline("Training SVM");
+        svm.train(data);
+        testPoint(svm,12,22.4f,-3.2f,-1);
+        testPoint(svm,5.4f,-8.2f,12,-1);
+        testPoint(svm,54,1,8.8f,1);
+        testPoint(svm,2.3f,68.4f,-4.8f,1);
+        testPoint(svm,-5,19,11.1f,-1);
+        testPoint(svm,18.8f,-27.8f,39.9f,1);
     }
 }
