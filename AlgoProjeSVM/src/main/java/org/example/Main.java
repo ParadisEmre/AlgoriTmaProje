@@ -65,7 +65,7 @@ public class Main {
         pline("====================================================================");
         pline("TEST CASE 3");
         pline("Plane [x + y + z = 25]");
-        smartRandom.setPlane(1,1,1,25);//x + z = 10
+        smartRandom.setPlane(1,1,1,25);//x + y + z = 25
         smartRandom.createRandomVector(10000,0,50);
         data = smartRandom.getDataSet();
         pline("Training SVM");
@@ -84,9 +84,9 @@ public class Main {
         
         //Test Case4
         pline("====================================================================");
-        pline("TEST CASE 4");
+        pline("TEST CASE 4 - 100k");
         pline("Plane [3x + 2y + 4z = 100]");
-        smartRandom.setPlane(3,2,4,100);//x + z = 10
+        smartRandom.setPlane(3,2,4,100);//3x + 2y + 4z = 100
         smartRandom.createRandomVector(100000,0,50);
         data = smartRandom.getDataSet();
         pline("Training SVM");
@@ -97,5 +97,28 @@ public class Main {
         testPoint(svm,2.3f,68.4f,-4.8f,1);
         testPoint(svm,-5,19,11.1f,-1);
         testPoint(svm,18.8f,-27.8f,39.9f,1);
+        
+        
+        //RESET ALL
+        svm = new SVM(1000, 0.001f, 0.01f);
+        smartRandom = new SmartRandom();
+        //
+        
+        //Test Case5
+        pline("====================================================================");
+        pline("TEST CASE 5 - 200k");
+        pline("Plane [-6x + 8y + 12z = 250]");
+        smartRandom.setPlane(-6,8,12,250);//-6x + 8y + 12z = 250
+        smartRandom.createRandomVector(200000,0,50);
+        data = smartRandom.getDataSet();
+        pline("Training SVM");
+        svm.train(data);
+        testPoint(svm,-12,18.2f,-2.4f,-1);
+        testPoint(svm,-44,12,12,1);
+        testPoint(svm,0,-4.7f,-16.1f,-1);
+        testPoint(svm,7.4f,68,-4.8f,1);
+        testPoint(svm,-22.1f,4.4f,1.2f,-1);
+        testPoint(svm,18.8f,-21.4f,69.9f,1);
+
     }
 }
