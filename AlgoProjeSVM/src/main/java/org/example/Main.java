@@ -18,6 +18,7 @@ public class Main {
         SVM svm = new SVM(1000, 0.001f, 0.01f);
         SmartRandom smartRandom = new SmartRandom();
 
+        
         //Test Case1
         pline("====================================================================");
         pline("TEST CASE 1");
@@ -34,6 +35,7 @@ public class Main {
         testPoint(svm,5,-9,-21.9f,-1);
         testPoint(svm,-29.13f,0.1f,-11.11f,-1);
 
+        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
@@ -56,10 +58,12 @@ public class Main {
         testPoint(svm,-10,-21.5f,5.1f,-1);
         testPoint(svm,54.19f,23,-80,-1);
 
+        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
         //
+        
         
         //Test Case3
         pline("====================================================================");
@@ -77,10 +81,12 @@ public class Main {
         testPoint(svm,-16,3.7f,-7,-1);
         testPoint(svm,0,39.2f,-7.2f,1);
         
+        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
         //
+        
         
         //Test Case4
         pline("====================================================================");
@@ -104,6 +110,7 @@ public class Main {
         smartRandom = new SmartRandom();
         //
         
+        
         //Test Case5
         pline("====================================================================");
         pline("TEST CASE 5 - 200k");
@@ -119,6 +126,56 @@ public class Main {
         testPoint(svm,7.4f,68,-4.8f,1);
         testPoint(svm,-22.1f,4.4f,1.2f,-1);
         testPoint(svm,18.8f,-21.4f,69.9f,1);
-
+        
+        
+        //RESET ALL
+        svm = new SVM(1000, 0.005f, 0.01f);
+        smartRandom = new SmartRandom();
+        //
+        
+        
+        //Test Case6
+        pline("====================================================================");
+        pline("TEST CASE 6 - 100k - 0.005f Learning Rate");
+        pline("Plane [5x + 10y + 15z = 75]");
+        smartRandom.setPlane(5,10,15,75);//5x + 10y + 15z = 75
+        smartRandom.createRandomVector(100000,0,50);
+        data = smartRandom.getDataSet();
+        pline("Training SVM");
+        svm.train(data);
+        testPoint(svm,2.4f,19,-4.3f,1);
+        testPoint(svm,-4.4f,3.2f,1,-1); 
+        testPoint(svm,0,-4.7f,-16.1f,-1);
+        testPoint(svm,7.4f,68,-4.8f,1);
+        testPoint(svm,-22.1f,4.4f,1.2f,-1);
+        testPoint(svm,18.8f,-21.4f,69.9f,1); 
+        
+        
+        //RESET ALL
+        svm = new SVM(1000, 0.005f, 0.01f);
+        smartRandom = new SmartRandom();
+        //
+        
+        
+        //Test Case7
+        pline("====================================================================");
+        pline("TEST CASE 7 - 50k - 0.005f Learning Rate");
+        pline("Plane [-6x + 8y + 12z = 250]");
+        smartRandom.setPlane(-6,8,12,250);//-6x + 8y + 12z = 250
+        smartRandom.createRandomVector(50000,0,50);
+        data = smartRandom.getDataSet();
+        pline("Training SVM");
+        svm.train(data);
+        testPoint(svm,-12,18.2f,-2.4f,-1);
+        testPoint(svm,-44,12,12,1);
+        testPoint(svm,0,-4.7f,-16.1f,-1);
+        testPoint(svm,7.4f,68,-4.8f,1);
+        testPoint(svm,-22.1f,4.4f,1.2f,-1);
+        testPoint(svm,18.8f,-21.4f,69.9f,1);
+        
+        
+        
+        pline("====================================================================");
+        pline("ALL TEST CASE FINISHED");
     }
 }
