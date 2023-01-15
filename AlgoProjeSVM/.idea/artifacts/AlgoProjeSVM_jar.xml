@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AlgoProjeSVM:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AlgoProjeSVM_jar</output-path>
+    <root id="archive" name="AlgoProjeSVM.jar">
+      <element id="module-output" name="AlgoProjeSVM" />
+    </root>
+  </artifact>
+</component>
