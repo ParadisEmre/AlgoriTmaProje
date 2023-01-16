@@ -13,7 +13,7 @@ public class Main {
         String answer = (expected == result) ? "CORRECT" : "WRONG";
         pline(String.format("For point [%6.2f %6.2f %6.2f] EXPECTED %+1d PREDICTED %+1d [%s]",x,y,z,expected,result,answer));
     }
-
+    // It creates an instance of the SVM class with specific parameters, and creates an instance of the SmartRandom class.
     public static void main(String[] args) {
         SVM svm = new SVM(1000, 0.001f, 0.01f);
         SmartRandom smartRandom = new SmartRandom();
@@ -35,12 +35,9 @@ public class Main {
         testPoint(svm,5,-9,-21.9f,-1);
         testPoint(svm,-29.13f,0.1f,-11.11f,-1);
 
-        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-
 
         //Test Case2
         pline("====================================================================");
@@ -62,8 +59,6 @@ public class Main {
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-        
         
         //Test Case3
         pline("====================================================================");
@@ -81,12 +76,9 @@ public class Main {
         testPoint(svm,-16,3.7f,-7,-1);
         testPoint(svm,0,39.2f,-7.2f,1);
         
-        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-        
         
         //Test Case4
         pline("====================================================================");
@@ -104,12 +96,9 @@ public class Main {
         testPoint(svm,-5,19,11.1f,-1);
         testPoint(svm,18.8f,-27.8f,39.9f,1);
         
-        
         //RESET ALL
         svm = new SVM(1000, 0.001f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-        
         
         //Test Case5
         pline("====================================================================");
@@ -127,12 +116,9 @@ public class Main {
         testPoint(svm,-22.1f,4.4f,1.2f,-1);
         testPoint(svm,18.8f,-21.4f,69.9f,1);
         
-        
         //RESET ALL
         svm = new SVM(1000, 0.005f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-        
         
         //Test Case6
         pline("====================================================================");
@@ -150,12 +136,9 @@ public class Main {
         testPoint(svm,-22.1f,4.4f,1.2f,-1);
         testPoint(svm,18.8f,-21.4f,69.9f,1); 
         
-        
         //RESET ALL
         svm = new SVM(1000, 0.005f, 0.01f);
         smartRandom = new SmartRandom();
-        //
-        
         
         //Test Case7
         pline("====================================================================");
@@ -172,8 +155,6 @@ public class Main {
         testPoint(svm,7.4f,68,-4.8f,1);
         testPoint(svm,-22.1f,4.4f,1.2f,-1);
         testPoint(svm,18.8f,-21.4f,69.9f,1);
-        
-        
         
         pline("====================================================================");
         pline("ALL TEST CASE FINISHED");
