@@ -13,7 +13,7 @@ public class DataEntry {
         this.properties = new Vector3(x,y,z);
         this.classification = classification;
     }
-
+    //function overriding
     @Override
     public String toString() {
         return  (Math.signum(classification) > 0 ? "[+1] " : "[-1] ") + properties.toString();
