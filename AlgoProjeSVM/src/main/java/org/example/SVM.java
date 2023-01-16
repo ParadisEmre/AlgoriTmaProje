@@ -16,7 +16,7 @@ public class SVM {
        this.learningRate = learningRate;
        this.lambda = lambda;
     }
-    
+    // train 
     public void train(List<DataEntry> dataSet){
         weight = Vector3.ZERO;
 
@@ -41,7 +41,10 @@ public class SVM {
     public float predict(Vector3 xi){
             return Math.signum(Vector3.dot(xi,weight)-bias);
     }
-
+    //This function takes in 3 float values (x,y,z) and calculates the dot product of the input vector (x,y,z) 
+    //and a weight vector, then subtracts the bias value. 
+    //The result is passed through the Math.signum function to classify the input and returns the prediction as a float value.
+ 
     public float predict(float x,float y,float z){
         float prediction = Math.signum(Vector3.dot(new Vector3(x,y,z),weight)-bias);
         //System.out.println(String.format("Classification for point %5.2f %5.2f %5.2f is %+1.0f",x,y,z,prediction));
