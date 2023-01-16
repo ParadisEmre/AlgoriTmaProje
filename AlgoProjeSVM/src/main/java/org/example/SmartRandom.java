@@ -76,7 +76,6 @@ public class SmartRandom {
                         System.out.print("#");
                     }
                     if(counter == amount) System.out.println("");
-                    //
                 }
             }
         }
@@ -101,7 +100,8 @@ public class SmartRandom {
             rndDataSet.add(entry);
         }
     }
-
+    //This code creates a plane using 3 randomly generated points and sets the coefficients and equality for the plane equation using vector math operations. 
+    //The setPlane methods allow for manual input of coefficients and equality.
     public void createPlane() {
         for (int i = 0; i < 3; i++) {//Create 3 points that will create the plane
             Vector3 point = new Vector3(rand.nextFloat(0, upperBound - lowerBound) + lowerBound, rand.nextFloat(0, upperBound - lowerBound) + lowerBound, rand.nextFloat(0, upperBound - lowerBound) + lowerBound);
@@ -126,6 +126,8 @@ public class SmartRandom {
         planeEquationCoefficients = new Vector3(x,y,z);
         planeEquationEquality = constant;
     }
+    // This method sets the coefficients and constant for the plane equation in the form of ax + by + cz = d, 
+    //where planeEquationCoefficients = <x,y,z> and planeEquationEquality = d.
 
     public void setPlane(Vector3 vec,float constant){
         planeEquationCoefficients = vec;
@@ -157,11 +159,13 @@ public class SmartRandom {
         }
         return true;
     }
+    // This method prints the equation of a plane in the form of "ax + by + cz + d = 0" using the coefficients stored in the planeEquationCoefficients object 
+    //and the constant stored in planeEquationEquality.
 
     public void printPlaneEquation() {
         System.out.println(planeEquationCoefficients.x + "x +" + planeEquationCoefficients.y + "y + " + planeEquationCoefficients.z + "z + " + -planeEquationEquality + " = 0");
     }
-
+    // This method returns a list of DataEntry objects, representing the current dataset being used.
     public List<DataEntry> getDataSet() {
         return rndDataSet;
     }
